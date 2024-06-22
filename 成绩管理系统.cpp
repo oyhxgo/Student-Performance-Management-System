@@ -763,15 +763,15 @@ int main() {
 	Slist *L1, *L2;
 	Initlist(L1);
 	Initlist(L2);//初始化
-	char filename1[30] = "1.txt", filename2[30] = "2.txt";
+	char filename1[30] = "1.txt", filename2[30] = "2.txt";//默认不输入，寻找1.txt和2.txt
 	//说明
 	cout << "\t****在进入系统之前您需要先导入您的成绩表****" << endl;
 	cout << "\t****请输入您的初始成绩表的文件名称，包括后缀名****" << endl << endl;
 	cout << "\t****请输入第一次考试文件名："; //第一次考试
-//	cin >> filename1;
+	cin >> filename1;
 	CreatList(L1, filename1);//建表
 	cout << "\t****请输入第二次考试文件名：";
-//	cin >> filename2;
+	cin >> filename2;
 	cout << endl; //第二次考试
 	CreatList(L2, filename2);//建表
 	cout << "\t****好的，让我们出发！！！" << endl;
