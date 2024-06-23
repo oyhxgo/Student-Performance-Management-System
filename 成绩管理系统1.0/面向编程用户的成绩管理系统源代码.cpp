@@ -54,16 +54,16 @@ void menu1() {
 	cout << "\t***************************************************\n";
 	cout << "\t*                学生成绩管理系统                 *\n";
 	cout << "\t***************************************************\n";
-	cout << "\t*                  1.查看成绩（所有记录）         *\n";
-	cout << "\t*                  2.查看统计汇总                 *\n";
-	cout << "\t*                  3.成绩查询（支持模糊查询）     *\n";
-	cout << "\t*                  4.修改学生成绩                 *\n";
-	cout << "\t*                  5.学生成绩补录                 *\n";
-	cout << "\t*                  6.删除学生成绩                 *\n";
-	cout << "\t*                  7.降序输出成绩                 *\n";
-	cout << "\t*                 8.分班成绩导出                  *\n";
-	cout << "\t*              9.挂科名单和优秀率名单             *\n";
-	cout << "\t*                 10.文档帮助                     *\n";
+	cout << "\t*               1.查看成绩（所有记录）            *\n";
+	cout << "\t*               2.查看统计汇总                    *\n";
+	cout << "\t*               3.成绩查询（支持模糊查询）        *\n";
+	cout << "\t*               4.修改学生成绩                    *\n";
+	cout << "\t*               5.学生成绩补录                    *\n";
+	cout << "\t*               6.删除学生成绩                    *\n";
+	cout << "\t*               7.删除数据                        *\n";
+	cout << "\t*               8.分班成绩导出                    *\n";
+	cout << "\t*               9.挂科名单和优秀率名单            *\n";
+	cout << "\t*              10.文档帮助                        *\n";
 	cout << "\t*              11.按其他键退出本程序              *\n";
 	cout << "\t***************************************************\n";
 }
@@ -439,7 +439,7 @@ void Changedata(Slist *&L1, Slist *&L2) {
 				na = L2;
 			}
 			char b[150];
-			cout << "不知您要修改哪位大神的成绩呀？" << endl;
+			cout << "不知您要修改哪位大神的成绩呀？(最好输入这位大神的准确姓名或者学号)" << endl;
 			cout << "我要修改：";
 			cin >> b;
 			//这里就已经确立哪一场考试，现在我们开始写修改部分，直接让使用者键入一个数以替代原分数即可，那么第一修改谁的，修改哪一科
@@ -452,12 +452,12 @@ void Changedata(Slist *&L1, Slist *&L2) {
 					continue;
 				else { //找到了
 					printf("好耶！我找到了 ！！!\n");
-					printf("%s  软件%d班  %s  \n第%d次考试的成绩条： 高等数学：%3d  数据结构：%3d  线性代数：%3d  大学物理：%3d  大学英语：%3d  大学体育：%3d\n", na->data[i].no, na->data[i].classno + 1, na->data[i].name, p, na->data[i].cour[0], na->data[i].cour[1], na->data[i].cour[2], na->data[i].cour[3], na->data[i].cour[4], na->data[i].cour[5]);
+					printf("%s  软件%d班  %s  \n第%d次考试的成绩条： 高等数学：%3d  数据结构：%3d  线性代数：%3d  大学物理：%3d  大学英语：%3d  大学体育：%3d  总分为%3d\n", na->data[i].no, na->data[i].classno + 1, na->data[i].name, p, na->data[i].cour[0], na->data[i].cour[1], na->data[i].cour[2], na->data[i].cour[3], na->data[i].cour[4], na->data[i].cour[5],na->data[i].sum);
 					system("pause");
 					while (1) {
 						//二级目录
 						system("cls");
-						printf("%s  软件%d班  %s  \n第%d次考试的成绩条： 高等数学：%3d  数据结构：%3d  线性代数：%3d  大学物理：%3d  大学英语：%3d  大学体育：%3d\n", na->data[i].no, na->data[i].classno + 1, na->data[i].name, p, na->data[i].cour[0], na->data[i].cour[1], na->data[i].cour[2], na->data[i].cour[3], na->data[i].cour[4], na->data[i].cour[5]);
+						printf("%s  软件%d班  %s  \n第%d次考试的成绩条： 高等数学：%3d  数据结构：%3d  线性代数：%3d  大学物理：%3d  大学英语：%3d  大学体育：%3d  总分为%3d\n", na->data[i].no, na->data[i].classno + 1, na->data[i].name, p, na->data[i].cour[0], na->data[i].cour[1], na->data[i].cour[2], na->data[i].cour[3], na->data[i].cour[4], na->data[i].cour[5],na->data[i].sum);
 						cout << "\n\t                                                 \n";
 						cout << "\n\t                                                 \n";
 						cout << "\t*                修改学生成绩                     *\n";
@@ -506,9 +506,17 @@ void Changedata(Slist *&L1, Slist *&L2) {
 						int  score;
 						cout << "\n\t*您要将分数修改为：";//修改为什么分数
 						cin >> score;
+						if(score>100||score<0){
+							cout<<"\n\t*！！！警告分数区间在0-100之间，请重新输入！！！(为此将惩罚您前往上一级)\n"; 
+							system("pause");
+							continue; 
+						}  
+						na->data[i].sum-=na->data[i].cour[p - 1];
 						na->data[i].cour[p - 1] = score;//对相应的考试科目成绩进行修改
-						cout << "\n好的，帮您修改成功！现在TA的分数条如下：\n\n";
-						printf("%s  软件%d班  %s  \n第%d次考试的成绩条： 高等数学：%3d  数据结构：%3d  线性代数：%3d  大学物理：%3d  大学英语：%3d  大学体育：%3d\n", na->data[i].no, na->data[i].classno + 1, na->data[i].name, p, na->data[i].cour[0], na->data[i].cour[1], na->data[i].cour[2], na->data[i].cour[3], na->data[i].cour[4], na->data[i].cour[5]);
+						na->data[i].sum+=na->data[i].cour[p - 1];//更新总分
+						cout << "\n\t*好的，帮您修改成功！现在TA的分数条如下：\n\n";
+						printf("\t*%s  软件%d班  %s  \n\t*第%d次考试的成绩条： 高等数学：%3d  数据结构：%3d  线性代数：%3d  大学物理：%3d  大学英语：%3d  大学体育：%3d  总分为%3d\n", na->data[i].no, na->data[i].classno + 1, na->data[i].name, p, na->data[i].cour[0], na->data[i].cour[1], na->data[i].cour[2], na->data[i].cour[3], na->data[i].cour[4], na->data[i].cour[5],na->data[i].sum);
+						printf("\t*");
 						system("pause");
 						system("cls");
 						cout << "\n\t                                                 \n";
@@ -741,16 +749,16 @@ void Help() {
 	cout << "\t***************************************************\n";
 	cout << "\t*                学生成绩管理系统                 *\n";
 	cout << "\t***************************************************\n";
-	cout << "\t*                  1.查看成绩（所有记录）         *\n";
-	cout << "\t*                  2.查看统计汇总                 *\n";
-	cout << "\t*                  3.成绩查询（支持模糊查询）     *\n";
-	cout << "\t*                  4.修改学生成绩                 *\n";
-	cout << "\t*                  5.学生成绩补录                 *\n";
-	cout << "\t*                  6.删除学生成绩                 *\n";
-	cout << "\t*                  7.删除数据                     *\n";
-	cout << "\t*                 8.分班成绩导出                  *\n";
-	cout << "\t*              9.挂科名单和优秀率名单             *\n";
-	cout << "\t*                 10.文档帮助                     *\n";
+	cout << "\t*               1.查看成绩（所有记录）            *\n";
+	cout << "\t*               2.查看统计汇总                    *\n";
+	cout << "\t*               3.成绩查询（支持模糊查询）        *\n";
+	cout << "\t*               4.修改学生成绩                    *\n";
+	cout << "\t*               5.学生成绩补录                    *\n";
+	cout << "\t*               6.删除学生成绩                    *\n";
+	cout << "\t*               7.删除数据                        *\n";
+	cout << "\t*               8.分班成绩导出                    *\n";
+	cout << "\t*               9.挂科名单和优秀率名单            *\n";
+	cout << "\t*              10.文档帮助                        *\n";
 	cout << "\t*              11.按其他键退出本程序              *\n";
 	cout << "\t***************************************************\n";
 	cout << "\t************抵制不良程序,拒绝盗版程序.*************\n";
@@ -763,15 +771,15 @@ int main() {
 	Slist *L1, *L2;
 	Initlist(L1);
 	Initlist(L2);//初始化
-	char filename1[30] = "1.txt", filename2[30] = "2.txt";
+	char filename1[30] = "1.txt", filename2[30] = "2.txt";//默认不输入，寻找1.txt和2.txt
 	//说明
 	cout << "\t****在进入系统之前您需要先导入您的成绩表****" << endl;
 	cout << "\t****请输入您的初始成绩表的文件名称，包括后缀名****" << endl << endl;
 	cout << "\t****请输入第一次考试文件名："; //第一次考试
-//	cin >> filename1;
+	//cin >> filename1;
 	CreatList(L1, filename1);//建表
 	cout << "\t****请输入第二次考试文件名：";
-//	cin >> filename2;
+	//cin >> filename2;
 	cout << endl; //第二次考试
 	CreatList(L2, filename2);//建表
 	cout << "\t****好的，让我们出发！！！" << endl;
@@ -940,15 +948,15 @@ int main() {
 							printf("第二次考试的成绩条： 高等数学：%3d  数据结构：%3d  线性代数：%3d  大学物理：%3d  大学英语：%3d  大学体育：%3d  总分：%3d  总排名：%3d\n",  L2->data[i].cour[0], L2->data[i].cour[1], L2->data[i].cour[2], L2->data[i].cour[3], L2->data[i].cour[4], L2->data[i].cour[5], L2->data[i].sum, L2->data[i].class_rank);
 							cout << "该考生在班级内总分升降：";
 							if (L2->data[i].schange >= 0)
-								cout << "上升";
-							else
 								cout << "下降";
+							else
+								cout << "上升";
 							cout << abs(L2->data[i].schange) << "分" << endl;
 							cout << "该考生在班级内排名升降：";
 							if (L2->data[i].rchange >= 0)
-								cout << "上升";
-							else
 								cout << "下降";
+							else
+								cout << "上升";
 							cout << abs(L2->data[i].rchange) << "名" << endl;
 
 							cout << "\n*>*********************************************************************************************************************<*\n\n";
@@ -970,13 +978,13 @@ int main() {
 							fprintf(f1, "第二次考试的成绩条： 高等数学：%3d  数据结构：%3d  线性代数：%3d  大学物理：%3d  大学英语：%3d  大学体育：%3d  总分：%3d  总排名：%3d\n",  L2->data[i].cour[0], L2->data[i].cour[1], L2->data[i].cour[2], L2->data[i].cour[3], L2->data[i].cour[4], L2->data[i].cour[5], L2->data[i].sum, L2->data[i].class_rank);
 							fprintf(f1, "该考生在班级内总分升降：");
 							if (L2->data[i].schange >= 0)
-								fprintf(f1, "上升");
-							else
 								fprintf(f1, "下降");
+							else
+								fprintf(f1, "上升");
 							fprintf(f1, "%d分\n", abs(L2->data[i].schange));
 							fprintf(f1, "该考生在班级内排名升降：");
 							if (L2->data[i].rchange >= 0)
-								fprintf(f1, "上升");
+								fprintf(f1, "下降");
 							else
 								fprintf(f1, "上升");
 							fprintf(f1, "%d名\n", abs(L2->data[i].rchange));
