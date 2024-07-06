@@ -446,8 +446,8 @@ void Changedata(Slist *&L1, Slist *&L2) {
 			//修改谁的，输入这个名字，我们得知道在哪里，这里就又用到第三个问题
 			for (int i = 0; i < na->length; i++) {
 				char* add1, * add2;
-				add1 = strstr(L1->data[i].no, b);
-				add2 = strstr(L1->data[i].name, b);
+				add1 = strstr(na->data[i].no, b);
+				add2 = strstr(na->data[i].name, b);
 				if (add1 == NULL && add2 == NULL)//没找到这个人就继续
 					continue;
 				else { //找到了
@@ -471,10 +471,10 @@ void Changedata(Slist *&L1, Slist *&L2) {
 						cout << "\t*              7.返回上一级吧                     *\n";
 						cout << "\t***************************************************\n";
 						cout << "\n\t*【请输入您需要修改的学科：】";
-						int p;//判断修改哪一科
-						cin >> p;
+						int o;//判断修改哪一科
+						cin >> o;
 						cout << endl;
-						switch (p) {
+						switch (o) {
 							case 1:
 								cout << "\n\t*1.修改高等数学" << endl;
 								break;
@@ -501,7 +501,7 @@ void Changedata(Slist *&L1, Slist *&L2) {
 								break;
 						}
 						Sleep(600);
-						if (p > 6)
+						if (o > 6||o<1)
 							break;//返回上一级
 						int  score;
 						cout << "\n\t*您要将分数修改为：";//修改为什么分数
@@ -511,9 +511,9 @@ void Changedata(Slist *&L1, Slist *&L2) {
 							system("pause");
 							continue; 
 						}  
-						na->data[i].sum-=na->data[i].cour[p - 1];
-						na->data[i].cour[p - 1] = score;//对相应的考试科目成绩进行修改
-						na->data[i].sum+=na->data[i].cour[p - 1];//更新总分
+						na->data[i].sum-=na->data[i].cour[o - 1];
+						na->data[i].cour[o - 1] = score;//对相应的考试科目成绩进行修改
+						na->data[i].sum+=na->data[i].cour[o - 1];//更新总分
 						cout << "\n\t*好的，帮您修改成功！现在TA的分数条如下：\n\n";
 						printf("\t*%s  软件%d班  %s  \n\t*第%d次考试的成绩条： 高等数学：%3d  数据结构：%3d  线性代数：%3d  大学物理：%3d  大学英语：%3d  大学体育：%3d  总分为%3d\n", na->data[i].no, na->data[i].classno + 1, na->data[i].name, p, na->data[i].cour[0], na->data[i].cour[1], na->data[i].cour[2], na->data[i].cour[3], na->data[i].cour[4], na->data[i].cour[5],na->data[i].sum);
 						printf("\t*");
@@ -1095,7 +1095,6 @@ int main() {
 	}
 	return 0;
 }
-
 
 
 
