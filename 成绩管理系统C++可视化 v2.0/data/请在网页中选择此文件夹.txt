@@ -1,0 +1,2 @@
+第一次打开 index.html 后，请点击右上角“选择数据文件夹”，并选择当前 data 文件夹。
+程序将自动生成 grade_manager_data.json，所有学生、考试和成绩都保存在里面。
